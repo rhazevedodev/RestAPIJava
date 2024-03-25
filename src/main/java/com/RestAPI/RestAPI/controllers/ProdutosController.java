@@ -35,8 +35,9 @@ public class ProdutosController {
     }
 
     @GetMapping("/produtos")
-    public List<ProdutosModelo> listarProdutos(){
-        return produtoRepositorio.findAll();
+    public ResponseEntity<List<ProdutosModelo>> listarTodosOsProdutos(){
+        List<ProdutosModelo> listaProdutos = produtoRepositorio.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(listaProdutos);
     }
 
 }
