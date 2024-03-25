@@ -4,6 +4,7 @@ import com.RestAPI.RestAPI.dtos.ProdutosDTO;
 import com.RestAPI.RestAPI.models.ProdutosModelo;
 import com.RestAPI.RestAPI.repositories.ProdutoRepositorio;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,8 +40,9 @@ public class ProdutosController {
     }
 
     @GetMapping("/produtos/{id}")
-    public Optional<ProdutosModelo> listarProdutosPorId(@PathVariable String id){
-        return produtoRepositorio.findById(id);
+    public ResponseEntity<Object> listarProdutosPorId(@PathVariable(value="id") String id){
+        Optional<ProdutosModelo> listaProdutos = produtoRepositorio.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(listaProdutos);
     }
 
 }
