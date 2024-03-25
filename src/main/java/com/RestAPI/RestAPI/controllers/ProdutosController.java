@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class ProdutosController {
 
@@ -30,6 +32,11 @@ public class ProdutosController {
         BeanUtils.copyProperties(produtoDTO, modeloProduto);
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepositorio.save(modeloProduto));
 
+    }
+
+    @GetMapping("/produtos")
+    public List<ProdutosModelo> listarProdutos(){
+        return produtoRepositorio.findAll();
     }
 
 }
