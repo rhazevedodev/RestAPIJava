@@ -8,12 +8,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ProdutosController {
@@ -38,6 +36,11 @@ public class ProdutosController {
     public ResponseEntity<List<ProdutosModelo>> listarTodosOsProdutos(){
         List<ProdutosModelo> listaProdutos = produtoRepositorio.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(listaProdutos);
+    }
+
+    @GetMapping("/produtos/{id}")
+    public Optional<ProdutosModelo> listarProdutosPorId(@PathVariable String id){
+        return produtoRepositorio.findById(id);
     }
 
 }
